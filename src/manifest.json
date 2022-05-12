@@ -1,0 +1,10 @@
+{
+  "manifest_version": 2,
+  "name": "Bookmarks",
+  "version": "0.0.1",
+  "browser_action": {
+    "default_title": "Bookmarks",
+    "default_popup": "index.html"
+  },
+  "permissions": ["bookmarks", "storage", "http://localhost:8080/*", "<all_urls>"]
+}
