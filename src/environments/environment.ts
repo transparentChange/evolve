@@ -4,6 +4,7 @@
 
 export const environment = {
     production: false,
+    lumenUrl: "http://localhost:8080/lumen"
 };
 /*
  * For easier debugging in development mode, you can import the following file

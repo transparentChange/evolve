@@ -1,0 +1,30 @@
+@import './variables';
+@import './mixins';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+body {
+    font-family: $work;
+    margin: 0;
+}
+
+p, a {
+    font-size: 13px;
+}
+
+a:visited{
+    color: inherit;
+}
+
+.blue
+{
+ border: 1px solid #2d748c;
+ background-color: #40b5dc;
+}
+
+.tag {
+    font-size: 10px;
+}
+
+.rcorners {
+    border-radius: 5px;
+}

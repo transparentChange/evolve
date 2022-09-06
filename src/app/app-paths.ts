@@ -1,3 +1,4 @@
 export const paths = {
-    home: 'home'
+    home: 'home',
+    login: 'login'
 };

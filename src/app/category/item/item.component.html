@@ -1,0 +1,20 @@
+<div class="rcorners item">
+    <div id="table">
+        <div class="top">
+            <img src="//{{itemData.favicon}}">
+            <p class="title">{{itemData.title}}</p>
+            <div class="cell">
+                <button *ngIf="!itemData.status" mat-button id="new" class="tag" [matMenuTriggerFor]="menu">NEW ▾</button>
+                <button *ngIf="itemData.status=='VISITED'" mat-button id="visited" class="tag" [matMenuTriggerFor]="menu">VISITED ▾</button>
+                <button *ngIf="itemData.status=='COMPLETED'" mat-button id="completed" class="tag" [matMenuTriggerFor]="menu">COMPLETED ▾</button>
+                <mat-menu #menu="matMenu" class="status-menu">
+                    <button mat-menu-item class="status-item" (click)="onStatusChange('VISITED')">Visited</button>
+                    <button mat-menu-item class="status-item" (click)="onStatusChange('COMPLETED')">Completed</button>
+                </mat-menu>
+            </div>
+        </div>
+    </div>
+    <a href="//{{itemData.shortUrl}}" target="_blank" class="link" style="color:#239CD9" (click)="onStatusChange('VISITED')">{{itemData.url}}</a>
+
+</div>
+
