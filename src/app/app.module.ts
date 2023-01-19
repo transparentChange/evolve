@@ -15,6 +15,11 @@ import { ItemComponent } from './category/item/item.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { LoginComponent } from './login/login.component';
 import { MatCommonModule } from '@angular/material/core';
+import { BackgroundComponent } from './background/background.component';
+import { ViewComponent } from './view/view.component';
+import { Guard } from './guard.service';
+import { BookmarksStoreService } from './items/bookmarksstore.service';
+import { BackgroundService } from './background/background.service';
 
 export function tokenGetter() {
     return localStorage.getItem('access_token');
@@ -26,7 +31,9 @@ export function tokenGetter() {
         HomeComponent,
         CategoryComponent,
         ItemComponent,
-        LoginComponent
+        LoginComponent,
+        BackgroundComponent,
+        ViewComponent
     ],
     imports: [
         BrowserModule,
@@ -46,7 +53,7 @@ export function tokenGetter() {
             }
         })
     ],
-    providers: [],
+    providers: [Guard, BookmarksStoreService, BackgroundService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -8,3 +8,9 @@ export interface Item {
     periodHours: number;
     status: string;
   }
+
+  export enum Status {
+    NEW = "NEW",
+    VISITED = "VISITED",
+    COMPLETED = "COMPLETED" 
+  }
