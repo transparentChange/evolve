@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
         console.log("hello");
         
         //this.s.login("matthew", "sk").subscribe;
-        //await this.saveBookmarks();
+        await this.saveBookmarks();
     }
 
     async saveBookmarks() {
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
         newTree = this.flattenTree(newTree);
         console.log(newTree);
 
-        const putUrl = environment.lumenUrl + '/bookmarkTree';
+        const putUrl = "http://localhost:8080/lumen" + '/bookmarkTree';
         return this.http.put(putUrl, newTree, {responseType: "text"}).subscribe(
         (data) => {
             console.log(data);
