@@ -10,6 +10,7 @@ import { Status } from './item.entity';
 })
 export class ItemComponent implements OnInit {
   @Input() itemData: any;
+  favicon: string = "";
 
   constructor(private http: HttpClient) { }
 
@@ -18,10 +19,7 @@ export class ItemComponent implements OnInit {
     const urlPart = this.itemData.url.slice(slashInd + 2);
 
     const newInd = urlPart.indexOf("/");
-    //this.itemData.favicon = this.itemData.shortUrl.slice(0, newInd) + "/favicon.ico";
-
-    //this.itemData.favicon = this.itemData.url.slice(0, newInd + slashInd + 3) + "/favicon.ico";
-    this.itemData.favicon =  `http://www.google.com/s2/favicons?domain=${this.itemData.url}`;
+    this.favicon =  `http://www.google.com/s2/favicons?domain=${this.itemData.url}`;
     console.log(this.itemData);
   }
 

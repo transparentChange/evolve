@@ -15,8 +15,6 @@ export class HomeComponent implements OnInit {
     }
 
     async ngOnInit() {
-        console.log("hello");
-        
         //this.s.login("matthew", "sk").subscribe;
         await this.saveBookmarks();
     }

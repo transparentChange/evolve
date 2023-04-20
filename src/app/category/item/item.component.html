@@ -1,16 +1,12 @@
-<div class="rcorners item">
+<div class="rcorners item" cdkDrag>
     <div id="table">
         <div class="top">
-            <img src="{{itemData.favicon}}">
+            <img src="{{favicon}}">
             <p class="title">{{itemData.title}}</p>
             <div class="cell">
-                <button *ngIf="itemData.status==statuses.NEW" mat-button id="new" class="tag" [matMenuTriggerFor]="menu">NEW ▾</button>
-                <button *ngIf="itemData.status=='VISITED'" mat-button id="visited" class="tag" [matMenuTriggerFor]="menu">VISITED ▾</button>
-                <button *ngIf="itemData.status=='COMPLETED'" mat-button id="completed" class="tag" [matMenuTriggerFor]="menu">COMPLETED ▾</button>
-                <mat-menu #menu="matMenu" class="status-menu">
-                    <button mat-menu-item class="status-item" (click)="onStatusChange('VISITED')">Visited</button>
-                    <button mat-menu-item class="status-item" (click)="onStatusChange('COMPLETED')">Completed</button>
-                </mat-menu>
+                <button *ngIf="itemData.status==statuses.NEW" mat-button id="new" class="tag" disabled="true">NEW</button>
+                <button *ngIf="itemData.status=='VISITED'" mat-button id="visited" class="tag" disabled="true">VISITED</button>
+                <button *ngIf="itemData.status=='COMPLETED'" mat-button id="completed" class="tag" disabled="true">COMPLETED</button>
             </div>
         </div>
     </div>

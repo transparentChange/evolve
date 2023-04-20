@@ -11,11 +11,11 @@ export class BackgroundComponent implements OnInit {
 
   constructor(private bookmarksStore: BookmarksStoreService, private backgroundService: BackgroundService) { }
 
-  ngOnInit(): void {
-    console.log("what");
+  ngOnInit() {
     this.bookmarksStore.initBookmarks();
+    browser.pageAction.onClicked.addListener(this.backgroundService.handleClose);
     browser.tabs.onUpdated.addListener(this.backgroundService.handleUpdated);
-    browser.tabs.onRemoved.addListener(this.backgroundService.handleRemoved);
+    //browser.tabs.onRemoved.addListener(this.backgroundService.handleRemoved);
   }
 
 

@@ -20,6 +20,8 @@ import { ViewComponent } from './view/view.component';
 import { Guard } from './guard.service';
 import { BookmarksStoreService } from './items/bookmarksstore.service';
 import { BackgroundService } from './background/background.service';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ViewService } from './view/view.service';
 
 export function tokenGetter() {
     return localStorage.getItem('access_token');
@@ -51,9 +53,10 @@ export function tokenGetter() {
                 allowedDomains: ['localhost:8080'],
                 disallowedRoutes: ['http://localhost:8080/lumen/login']
             }
-        })
+        }),
+        DragDropModule
     ],
-    providers: [Guard, BookmarksStoreService, BackgroundService],
+    providers: [Guard, BookmarksStoreService, BackgroundService, ViewService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
