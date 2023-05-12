@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { DH_CHECK_P_NOT_SAFE_PRIME } from 'constants';
 import { AuthService } from '../auth/auth.service';
+import { BookmarksStoreService } from '../items/bookmarksstore.service';
+import { Item } from '../category/item/item.entity';
 
 @Component({
     selector: 'app-home',
@@ -11,12 +13,10 @@ import { AuthService } from '../auth/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-    constructor(private http: HttpClient, private s: AuthService) {
+    constructor(private http: HttpClient, private s: AuthService, private bookmarksStore: BookmarksStoreService) {
     }
 
     async ngOnInit() {
-        console.log("hello");
-        
         //this.s.login("matthew", "sk").subscribe;
         await this.saveBookmarks();
     }
@@ -34,9 +34,12 @@ export class HomeComponent implements OnInit {
         console.log(newTree);
 
         const putUrl = "http://localhost:8080/lumen" + '/bookmarkTree';
-        return this.http.put(putUrl, newTree, {responseType: "text"}).subscribe(
-        (data) => {
+        return this.http.put<Item[]>(putUrl, newTree).subscribe(
+        (data: Item[]) => {
+            console.log("data")
             console.log(data);
+            const listVal = this.bookmarksStore.addAll(data);
+            browser.runtime.sendMessage(listVal);
         },
         (error) => {
             console.log(error)

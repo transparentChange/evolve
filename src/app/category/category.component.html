@@ -1,3 +1,4 @@
-<div id="column" class="rcorners">
-    <app-item *ngFor="let d of bookmarksStore.bookmarks$ | async" [itemData]="d"></app-item>
+<div cdkDropList id="column" (cdkDropListDropped)="bookmarksStore.drop($event)" class="rcorners">
+    <app-item *ngFor="let d of items" [itemData]="d"></app-item>
 </div>
+  
