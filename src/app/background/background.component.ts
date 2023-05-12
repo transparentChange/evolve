@@ -13,8 +13,9 @@ export class BackgroundComponent implements OnInit {
 
   ngOnInit() {
     this.bookmarksStore.initBookmarks();
-    browser.pageAction.onClicked.addListener(this.backgroundService.handleClose);
+    browser.pageAction.onClicked.addListener(this.backgroundService.handleClosed);
     browser.tabs.onUpdated.addListener(this.backgroundService.handleUpdated);
+    browser.runtime.onMessage.addListener((data: any) => this.bookmarksStore.bookmarks = data);
     //browser.tabs.onRemoved.addListener(this.backgroundService.handleRemoved);
   }
 

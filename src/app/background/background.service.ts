@@ -15,27 +15,34 @@ export class BackgroundService {
     this.tabMap = new Map<number, Set<number>>(); // update to Set<pair<number, statusStr>>
   }
 
-  handleClose = (tab: browser.tabs.Tab) => {
-    browser.tabs.remove(tab.id!);
-    const id = this.bookmarksStore.getId(tab.url!);
-    const url = `http://localhost:8080/lumen/setStatus/${id}`;
-    this.http.put<any>(url, Status.COMPLETED).subscribe();
+  handleClosed = (tabInfo: browser.tabs.Tab) => {
+    this.handleUpdated(tabInfo.id!, null, tabInfo, Status.COMPLETED);
+    browser.tabs.query({
+      currentWindow: true,
+      active: true,
+    }).then((tabs) => {
+      for (const tab of tabs) {
+        browser.tabs.remove(tab.id!);
+      }
+    });
   }
 
 
-  handleUpdated = (tabId: number, changeInfo: any, tabInfo: browser.tabs.Tab) => {
+  handleUpdated = (tabId: number, changeInfo: any, tabInfo: browser.tabs.Tab, status: Status = Status.VISITED) => {
     const id = this.bookmarksStore.getId(tabInfo.url!);
+    console.log(id);
+    console.log(tabInfo.url);
     if (id) {
       const url = `http://localhost:8080/lumen/setStatus/${id}`;
-      this.http.put<any>(url, Status.VISITED).subscribe((data: Item) => {
-      browser.tabs.query({
-        currentWindow: true,
-        active: true,
-      }).then((tabs) => {
-        for (const tab of tabs) {
-          browser.tabs.sendMessage(tab.id!, data);
-        }
-      })     
+      this.http.put<any>(url, status).subscribe((data: Item) => {
+        browser.tabs.query({
+          currentWindow: true,
+          url: "moz-extension://*/*"
+        }).then((tabs) => {
+          for (const tab of tabs) {
+            browser.tabs.sendMessage(tab.id!, data);
+          }
+        });
       });
     }
   }

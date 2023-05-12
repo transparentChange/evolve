@@ -6,12 +6,6 @@
     "default_title": "Bookmarks",
     "default_popup": "index.html"
   },
-  "content_scripts": [
-    {
-      "matches": ["*://*/*"],
-      "js": ["assets/modify.js"]
-    }
-  ],
   "background": {
     "page": "/index.html?page=background"
   },

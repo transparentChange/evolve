@@ -30,18 +30,39 @@ export class BookmarksStoreService {
     });
   }
 
-  update(newItem: any) { 
+  update(newItem: Item) { 
     const listVal = this._bookmarks.getValue();
     const ind = listVal.findIndex(item => item.id == newItem.id);
     listVal[ind] = newItem;
     this.bookmarks = listVal;
   }
 
+  addAll(newItems: Item[]) {
+    let listVal = this._bookmarks.getValue();
+    let itemsMap = new Map<number, Item>();
+    for (const item of newItems) {
+      itemsMap.set(item.id, item)
+    }
+    listVal.forEach((item: Item) => {
+      if (itemsMap.has(item.id)) {
+        itemsMap.delete(item.id); // ignore existing items
+      }
+    })
+    for (const [id, item] of itemsMap) {
+      listVal.push(item);
+    }
+    this.bookmarks = listVal;
+    return listVal;
+  }
+
   drop(event: any) {
+    const url = `http://localhost:8080/lumen/move/${event.previousIndex}/${event.currentIndex}`;
+    this.http.put<Item[]>(url, null).subscribe();
     moveItemInArray(this.bookmarks, event.previousIndex, event.currentIndex);
   }
 
   getId(url: string) {
+    console.log(this.bookmarks);
     const bookmark = this.bookmarks.find(b => b.url == url);
     return bookmark ? bookmark.id : bookmark;
   }
